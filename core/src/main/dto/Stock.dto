@@ -1,0 +1,12 @@
+export com.github.ouhaochen1024.core.model.Stock
+    -> package com.github.ouhaochen1024.core.model.dto
+
+SimpleStockView {
+    id
+    code
+    name
+}
+
+ComplexStockView {
+    #allScalars
+}

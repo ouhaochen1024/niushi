@@ -1,0 +1,47 @@
+server:
+  port: 12138
+#  servlet:
+#    context-path: /${spring.application.name}
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 25
+      minimum-idle: 10
+      pool-name: DatebookHikariCP
+    type: com.zaxxer.hikari.HikariDataSource
+    username: zyp
+    password: 42454434
+    url: jdbc:postgresql://127.0.0.1:17584/niushi?currentSchema=dev&useUnicode=true&characterEncoding=utf8&ssl=false&tcpKeepAlive=true&connectTimeout=10&socketTimeout=300&TimeZone=Asia/Shanghai
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 17586
+      password: 42454434
+      database: 0
+jimmer:
+  # This is very important,
+  # With this configuration,
+  # `jimmer-spring-starter` will create `KSqlClient` for kotlin;
+  # otherwise, it will create `JSqlClient` for java.
+  language: kotlin
+  database-validation-mode: ERROR
+  show-sql: true
+  pretty-sql: true
+  client:
+#    uri-prefix: /${spring.application.name}
+    ts:
+      path: /ts.zip
+    openapi:
+      path: /openapi.yml
+      ui-path: /openapi.html
+      properties:
+        info:
+          title: Jimmer Demo
+          description: This is the OpenAPI UI of Jimmer Demo
+          version: 1.0.0

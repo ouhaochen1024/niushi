@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: app-name
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  config:
+    additional-location: file:./config/
+  profiles:
+    active: dev
+  task:
+    execution:
+      thread-name-prefix: ${spring.application.name}-task-
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 100
+        keep-alive: 60s

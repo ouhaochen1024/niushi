@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="5" charset="UTF-8">
+    <Properties>
+        <property name="APP_NAME" value="app-name" />
+        <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%5p} %style{%5pid}{magenta} [%8.8t] %style{%-30.30c}{cyan} : %m%n"/>
+        <property name="FILE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %5pid [%t] %c : %m%n"/>
+        <property name="FILE_PATH" value="logs" />
+        <property name="FILE_NAME" value="${APP_NAME}" />
+    </Properties>
+
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8" disableAnsi="false" noConsoleNoAnsi="false"/>
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </console>
+
+        <RollingFile name="RollingFileLog"
+                     fileName="${FILE_PATH}/${FILE_NAME}.log"
+                     filePattern="${FILE_PATH}/%d{yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${FILE_PATTERN}" charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100">
+                <Delete basePath="${FILE_PATH}" maxDepth="2">
+                    <IfFileName glob="**/${FILE_NAME}-*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileLog"/>
+        </root>
+    </loggers>
+</configuration>
